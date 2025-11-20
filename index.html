@@ -16,7 +16,7 @@
     }
 
     .book {
-        width: 100%;
+        width: 95vw;          /* ancho relativo al dispositivo */
         max-width: 1200px;
         height: 85vh;
         overflow: hidden;
@@ -33,15 +33,16 @@
     }
 
     .page {
-        min-width: 120%;
+        min-width: 100%;      /* cada página ocupa todo el ancho */
         height: 100%;
         position: relative;
+        flex-shrink: 0;       /* evita que se reduzca en móviles */
     }
 
     img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: cover;    /* ajusta la imagen sin deformar */
         border-radius: 20px;
     }
 
@@ -60,6 +61,17 @@
 
     #prev { left: 10px; }
     #next { right: 10px; }
+
+    /* Ajustes móviles */
+    @media (max-width: 768px) {
+        .btn {
+            font-size: 22px;
+            padding: 8px 12px;
+        }
+        .book {
+            height: 75vh;
+        }
+    }
 </style>
 </head>
 
@@ -67,15 +79,15 @@
 
 <div class="book">
     <div class="pages" id="pages">
-    <div class="page"><img src="img/caca1.png"></div>
-    <div class="page"><img src="img/caca2.png"></div>
-    <div class="page"><img src="img/caca3.png"></div>
-    <div class="page"><img src="img/caca4.png"></div>
-    <div class="page"><img src="img/caca5.png"></div>
-    <div class="page"><img src="img/caca6.png"></div>
-    <div class="page"><img src="img/caca7.png"></div>
-    <div class="page"><img src="img/caca8.png"></div>
-</div>
+        <div class="page"><img src="img/caca1.png"></div>
+        <div class="page"><img src="img/caca2.png"></div>
+        <div class="page"><img src="img/caca3.png"></div>
+        <div class="page"><img src="img/caca4.png"></div>
+        <div class="page"><img src="img/caca5.png"></div>
+        <div class="page"><img src="img/caca6.png"></div>
+        <div class="page"><img src="img/caca7.png"></div>
+        <div class="page"><img src="img/caca8.png"></div>
+    </div>
 
     <button id="prev" class="btn">⟨</button>
     <button id="next" class="btn">⟩</button>
@@ -87,18 +99,15 @@ const pages = document.getElementById("pages");
 const total = pages.children.length;
 
 document.getElementById("next").onclick = () => {
-    index = (index + 1) % total;
+    if (index < total - 1) index++;
     pages.style.transform = `translateX(-${index * 100}%)`;
 };
 
 document.getElementById("prev").onclick = () => {
-    index = (index - 1 + total) % total;
+    if (index > 0) index--;
     pages.style.transform = `translateX(-${index * 100}%)`;
 };
 </script>
 
 </body>
 </html>
-
-
-
