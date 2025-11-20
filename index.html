@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para ti 💖</title>
+<style>
+    body {
+        margin: 0;
+        background: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        font-family: sans-serif;
+    }
+
+    .book {
+        width: 100%;
+        max-width: 1200px;
+        height: 85vh;
+        overflow: hidden;
+        position: relative;
+        border-radius: 20px;
+        box-shadow: 0 0 25px #0007;
+        background: #222;
+    }
+
+    .pages {
+        display: flex;
+        height: 100%;
+        transition: transform 0.4s ease;
+    }
+
+    .page {
+        min-width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+    .btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 28px;
+        background: #ffffff44;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        backdrop-filter: blur(3px);
+    }
+
+    #prev { left: 10px; }
+    #next { right: 10px; }
+</style>
+</head>
+
+<body>
+
+<div class="book">
+    <div class="pages" id="pages">
+    <div class="page"><img src="img/caca1.png"></div>
+    <div class="page"><img src="img/caca2.png"></div>
+    <div class="page"><img src="img/caca3.png"></div>
+    <div class="page"><img src="img/caca4.png"></div>
+    <div class="page"><img src="img/caca5.png"></div>
+    <div class="page"><img src="img/caca6.png"></div>
+    <div class="page"><img src="img/caca7.png"></div>
+    <div class="page"><img src="img/caca8.png"></div>
+</div>
+
+    <button id="prev" class="btn">⟨</button>
+    <button id="next" class="btn">⟩</button>
+</div>
+
+<script>
+let index = 0;
+const pages = document.getElementById("pages");
+const total = pages.children.length;
+
+document.getElementById("next").onclick = () => {
+    index = (index + 1) % total;
+    pages.style.transform = `translateX(-${index * 100}%)`;
+};
+
+document.getElementById("prev").onclick = () => {
+    index = (index - 1 + total) % total;
+    pages.style.transform = `translateX(-${index * 100}%)`;
+};
+</script>
+
+</body>
+</html>
