@@ -16,7 +16,7 @@
     }
 
     .book {
-        width: 95vw;          /* ancho relativo al dispositivo */
+        width: 95vw;          
         max-width: 1200px;
         height: 85vh;
         overflow: hidden;
@@ -33,16 +33,16 @@
     }
 
     .page {
-        min-width: 100%;      /* cada página ocupa todo el ancho */
+        min-width: 100%;      
         height: 100%;
         position: relative;
-        flex-shrink: 0;       /* evita que se reduzca en móviles */
+        flex-shrink: 0;       
     }
 
     img {
         width: 100%;
         height: 100%;
-        object-fit: cover;    /* ajusta la imagen sin deformar */
+        object-fit: cover;    
         border-radius: 20px;
     }
 
@@ -62,7 +62,6 @@
     #prev { left: 10px; }
     #next { right: 10px; }
 
-    /* Ajustes móviles */
     @media (max-width: 768px) {
         .btn {
             font-size: 22px;
@@ -95,18 +94,27 @@
 
 <script>
 let index = 0;
-const pages = document.getElementById("pages");
-const total = pages.children.length;
+const pagesContainer = document.getElementById("pages");
+const pages = pagesContainer.children;
+const total = pages.length;
+
+function updateSlide() {
+    const pageWidth = pages[0].offsetWidth; // ancho real de una página
+    pagesContainer.style.transform = `translateX(-${index * pageWidth}px)`;
+}
 
 document.getElementById("next").onclick = () => {
     if (index < total - 1) index++;
-    pages.style.transform = `translateX(-${index * 100}%)`;
+    updateSlide();
 };
 
 document.getElementById("prev").onclick = () => {
     if (index > 0) index--;
-    pages.style.transform = `translateX(-${index * 100}%)`;
+    updateSlide();
 };
+
+// Opcional: reajustar si se redimensiona la ventana (móviles rotados)
+window.addEventListener('resize', updateSlide);
 </script>
 
 </body>
